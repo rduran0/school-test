@@ -1,6 +1,5 @@
 package mx.dev.blank.entity;
 
-import javax.persistence.GenerationType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,13 +8,13 @@ import lombok.ToString;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "student")
@@ -37,10 +36,10 @@ public class Student implements Serializable {
   @Column(name = "name", nullable = false)
   private String name;
 
-  @Column(name = "first_surname", nullable = false, columnDefinition = "text")
+  @Column(name = "first_surname", nullable = false, columnDefinition = "TEXT")
   private String firstSurname;
 
-  @Column(name = "second_surname", columnDefinition = "text")
+  @Column(name = "second_surname", columnDefinition = "TEXT")
   private String secondSurname;
 
   @Temporal(TemporalType.DATE)

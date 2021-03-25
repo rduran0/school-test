@@ -20,9 +20,9 @@ spring:
         new_generator_mappings: false
     open-in-view: false
   datasource:
-    url: jdbc:mysql://localhost:3306/test
+    url: jdbc:mysql://localhost:3306/test?useSSL=false
     username: dev
-    password: demo
+    password:
     validationQuery: SELECT 1
 
 server:

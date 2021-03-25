@@ -1,6 +1,5 @@
 package mx.dev.blank.entity;
 
-import javax.persistence.GenerationType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -43,14 +43,10 @@ public class Teacher implements Serializable {
   @Column(name = "name", nullable = false)
   private String name;
 
-  @Column(name = "first_surname", nullable = false, columnDefinition = "text")
+  @Column(name = "first_surname", nullable = false, columnDefinition = "TEXT")
   private String firstSurname;
 
-  /**
-   * quiero poner a este campo nullable = false aunque si permite null
-   * Para preguntar a los alumnos.
-   */
-  @Column(name = "second_surname", columnDefinition = "text")
+  @Column(name = "second_surname", columnDefinition = "TEXT")
   private String secondSurname;
 
   @OneToMany(mappedBy = "teacher")
