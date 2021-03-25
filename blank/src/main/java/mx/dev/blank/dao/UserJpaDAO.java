@@ -55,7 +55,7 @@ public class UserJpaDAO implements UserDAO {
   }
 
   /**
-   * SELECT * FROM user LIMIT ${currentPos} ${size}
+   * SELECT * FROM user LIMIT ${currentPos}, ${size}
    */
   @Override
   public List<User> getPaginated(final int currentPos, final int size) {

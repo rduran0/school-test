@@ -5,8 +5,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.Root;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -39,7 +37,7 @@ public class CourseJpaDAO implements CourseDAO {
    * DELETE FROM course WHERE id = ${id}
    */
   @Override
-  public void delete(@NotNull Course course) {
+  public void delete(final Course course) {
     em.remove(course);
   }
 
@@ -47,7 +45,7 @@ public class CourseJpaDAO implements CourseDAO {
    * DELETE FROM course WHERE keycode LIKE '${prefix}%'
    */
   @Override
-  public void deleteByKeycodePrefix(@NotBlank String prefix) {
+  public void deleteByKeycodePrefix(final String prefix) {
     final CriteriaBuilder builder = em.getCriteriaBuilder();
     final CriteriaDelete<Course> delete = builder.createCriteriaDelete(Course.class);
     final Root<Course> root = delete.from(Course.class);

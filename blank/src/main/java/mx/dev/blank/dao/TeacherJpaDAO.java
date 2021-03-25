@@ -35,7 +35,7 @@ public class TeacherJpaDAO implements TeacherDAO {
    * WHERE t.id = ${teacherId};
    */
   @Override
-  public List<CourseRoomDTO> getAssignedCourseRoomsByTeacherId(int teacherId) {
+  public List<CourseRoomDTO> getAssignedCourseRoomsByTeacherId(final int teacherId) {
     final CriteriaBuilder builder = em.getCriteriaBuilder();
     final CriteriaQuery<CourseRoomDTO> query = builder.createQuery(CourseRoomDTO.class);
     final Root<CourseTeacher> root = query.from(CourseTeacher.class);
