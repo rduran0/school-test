@@ -11,10 +11,12 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import mx.dev.blank.entity.User;
 import mx.dev.blank.entity.User_;
 
+@RequiredArgsConstructor
 public class UserJpaDAO implements UserDAO {
 
   @Setter(onMethod = @__(@PersistenceContext), value = AccessLevel.PACKAGE)

@@ -1,5 +1,6 @@
 package mx.dev.blank.entity;
 
+import javax.persistence.GenerationType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,7 @@ public class TeacherRole implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
   private int id;
 
@@ -37,7 +38,7 @@ public class TeacherRole implements Serializable {
   private Teacher teacher;
 
   @Column(name = "teacher_id", updatable = false, insertable = false)
-  private String teacherId;
+  private int teacherId;
 
 
 }

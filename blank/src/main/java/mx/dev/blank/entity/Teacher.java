@@ -1,5 +1,6 @@
 package mx.dev.blank.entity;
 
+import javax.persistence.GenerationType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +33,7 @@ public class Teacher implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
   private int id;
 
@@ -42,14 +43,14 @@ public class Teacher implements Serializable {
   @Column(name = "name", nullable = false)
   private String name;
 
-  @Column(name = "first_surname", nullable = false)
+  @Column(name = "first_surname", nullable = false, columnDefinition = "text")
   private String firstSurname;
 
   /**
    * quiero poner a este campo nullable = false aunque si permite null
    * Para preguntar a los alumnos.
    */
-  @Column(name = "second_surname")
+  @Column(name = "second_surname", columnDefinition = "text")
   private String secondSurname;
 
   @OneToMany(mappedBy = "teacher")
