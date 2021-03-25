@@ -31,13 +31,13 @@ public class CourseTeacher implements Serializable {
   private int id;
 
   @Column(name = "course_id", nullable = false)
-  private String courseId;
+  private int courseId;
 
   @Column(name = "teacher_id", nullable = false)
-  private Teacher teacherId;
+  private int teacherId;
 
   @Column(name = "room_id", nullable = false)
-  private String roomId;
+  private int roomId;
 
   @Column(name = "start_time", nullable = false)
   private LocalTime startTime;
