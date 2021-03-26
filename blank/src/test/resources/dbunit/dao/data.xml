@@ -16,7 +16,8 @@
 
     <student id="1" uuid="U-1" name="José" first_surname="López" second_surname="Santos" birthday="1990-01-01" course_teacher_id="1"/>
     <student id="2" uuid="U-2" name="Ramon" first_surname="López" second_surname="Santos" birthday="1992-04-03" course_teacher_id="1"/>
-    <student id="3" uuid="U-3" name="Raul" first_surname="Acevedo" second_surname="Martinez" birthday="1992-04-03" course_teacher_id="1"/>
+    <student id="3" uuid="U-3" name="Raul" first_surname="Acevedo" second_surname="Martinez" birthday="1993-08-07" course_teacher_id="1"/>
+    <student id="4" uuid="U-4" name="Juan" first_surname="Torres" second_surname="Santiago" birthday="1994-05-05" course_teacher_id="1"/>
 
     <course_teacher id="1" course_id="1" teacher_id="1" room_id="1" start_time="10:00:00" end_time="11:30:00" day="MONDAY"/>
 </dataset>

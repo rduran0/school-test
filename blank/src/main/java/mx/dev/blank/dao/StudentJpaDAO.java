@@ -35,12 +35,12 @@ public class StudentJpaDAO implements StudentDAO {
     final CriteriaQuery<Student> query = builder.createQuery(Student.class);
     final Root<Student> root = query.from(Student.class);
 
-    query.select(root);
-
     final List<Predicate> predicates = new ArrayList<>();
     predicates.add(builder.between(root.get(Student_.birthday), rangeStart, rangeEnd));
 
     buildSearchCriteria(predicates, builder, root, nameQuery, uuidQuery);
+
+    query.select(root).where(predicates.toArray(new Predicate[0]));
 
     return em.createQuery(query).getResultList();
   }
@@ -55,10 +55,16 @@ public class StudentJpaDAO implements StudentDAO {
     if (StringUtils.isNotBlank(nameQuery)) {
       final String queryFormat = "%" + nameQuery + "%";
 
-      predicates.add(builder.like(root.get(Student_.name), queryFormat));
-      predicates.add(builder.like(root.get(Student_.firstSurname), queryFormat));
-      predicates.add(builder.like(root.get(Student_.secondSurname), queryFormat));
+      predicates.add(
+              builder.or(
+                      builder.like(root.get(Student_.name), queryFormat),
+                      builder.like(root.get(Student_.firstSurname), queryFormat),
+                      builder.like(root.get(Student_.secondSurname), queryFormat)
+              )
+      );
     }
+
+
 
     if (uuidQuery != null && uuidQuery.trim().isEmpty()) {
       final String queryFormat = "%" + uuidQuery + "%";
