@@ -22,7 +22,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/test?useSSL=false
     username: dev
-    password:
+    password: demo
     validationQuery: SELECT 1
 
 server:
