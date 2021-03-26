@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <user id="1" name="Usuario 1"/>
+    <user id="2" name="Usuario 2"/>
+    <user id="3" name="Usuario 3"/>
+
+    <course id="1" name="Historia" keycode="H1"/>
+
+    <room id="1" name="S-1201"/>
+
+    <teacher ID="1" uuid="uuid-1" name="Oscar" first_surname="de la O" second_surname="Cervantes"/>
+
+    <teacher_role id="1" name="SECRETARIO" teacher_id="1"/>
+    <teacher_role id="2" name="PROFESOR" teacher_id="1"/>
+    <teacher_role id="3" name="DIRECTOR" teacher_id="1"/>
+
+    <student id="1" uuid="U-1" name="José" first_surname="López" second_surname="Santos" birthday="1990-01-01" course_teacher_id="1"/>
+    <student id="2" uuid="U-2" name="Ramon" first_surname="López" second_surname="Santos" birthday="1992-04-03" course_teacher_id="1"/>
+    <student id="3" uuid="U-3" name="Raul" first_surname="Acevedo" second_surname="Martinez" birthday="1992-04-03" course_teacher_id="1"/>
+
+    <course_teacher id="1" course_id="1" teacher_id="1" room_id="1" start_time="10:00:00" end_time="11:30:00" day="MONDAY"/>
+</dataset>
