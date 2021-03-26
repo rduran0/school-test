@@ -15,8 +15,10 @@ import lombok.Setter;
 import mx.dev.blank.entity.Student;
 import mx.dev.blank.entity.Student_;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Repository;
 
 @RequiredArgsConstructor
+@Repository
 public class StudentJpaDAO implements StudentDAO {
 
   @Setter(onMethod = @__(@PersistenceContext), value = AccessLevel.PACKAGE)

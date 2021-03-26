@@ -46,4 +46,6 @@ public class Student implements Serializable {
   @Column(name = "birthday", nullable = false)
   private Date birthday;
 
+  @Column(name = "course_teacher_id", nullable = false)
+  private int courseID;
 }
