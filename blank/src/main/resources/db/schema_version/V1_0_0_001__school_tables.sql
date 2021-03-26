@@ -50,7 +50,7 @@ CREATE TABLE student (
   name  varchar(50) NOT NULL,
   first_surname  text NOT NULL,
   second_surname  text NULL,
-  birthday DATE NOT NULL,
+  birthday date NOT NULL,
   course_teacher_id int(20) UNSIGNED NOT NULL,
   PRIMARY KEY (id),
   CONSTRAINT student_course_teacher_id_fk FOREIGN KEY (course_teacher_id) REFERENCES course_teacher (id) ON DELETE CASCADE ON UPDATE CASCADE

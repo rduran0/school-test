@@ -1,5 +1,9 @@
 package mx.dev.blank.entity;
 
+import javax.persistence.FetchType;
+import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,12 +11,8 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalTime;
@@ -31,14 +31,17 @@ public class CourseTeacher implements Serializable {
   @Column(name = "id", nullable = false)
   private int id;
 
-  @Column(name = "course_id", nullable = false)
-  private int courseId;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "course_id", nullable = false)
+  private Course course;
 
-  @Column(name = "teacher_id", nullable = false)
-  private int teacherId;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "teacher_id", nullable = false)
+  private Teacher teacher;
 
-  @Column(name = "room_id", nullable = false)
-  private int roomId;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "room_id", nullable = false)
+  private Room room;
 
   @Column(name = "start_time", nullable = false)
   private LocalTime startTime;

@@ -1,5 +1,6 @@
 package mx.dev.blank.entity;
 
+import javax.persistence.GenerationType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
