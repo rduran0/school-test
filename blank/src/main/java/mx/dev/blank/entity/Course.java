@@ -5,12 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -25,7 +20,7 @@ public class Course implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
-  private int id;
+  private Integer id;
 
   @Column(name = "name", nullable = false)
   private String name;
@@ -33,4 +28,7 @@ public class Course implements Serializable {
   @Column(name = "keycode", nullable = false)
   private String keycode;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @Column(name="student_id",nullable = false)
+  private Student studentUUID;
 }

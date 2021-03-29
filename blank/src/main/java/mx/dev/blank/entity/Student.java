@@ -5,14 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -46,4 +39,7 @@ public class Student implements Serializable {
   @Column(name = "birthday", nullable = false)
   private Date birthday;
 
+  @OneToMany(fetch = FetchType.LAZY)
+  @Column(name="course_id",nullable = false)
+  private int courseid;
 }

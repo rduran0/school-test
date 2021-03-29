@@ -1,17 +1,18 @@
 package mx.dev.blank.dao;
 
+import java.nio.charset.CoderResult;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import mx.dev.blank.entity.Course;
+import mx.dev.blank.entity.CourseTeacher;
 import mx.dev.blank.entity.Student;
 import mx.dev.blank.entity.Student_;
 import org.apache.commons.lang3.StringUtils;
@@ -41,6 +42,26 @@ public class StudentJpaDAO implements StudentDAO {
     buildSearchCriteria(predicates, builder, root, nameQuery, uuidQuery);
 
     return em.createQuery(query).getResultList();
+  }
+
+  @Override
+  public List<Course> getCourseByStudent(String uuidQuery) {
+    final CriteriaBuilder builder= em.getCriteriaBuilder();
+    final CriteriaQuery<Course>query=builder.createQuery(Course.class);
+    final Root<Course> root= query.from(Course.class);
+    query.select(root).where(root.get(Course_.course),
+    builder.equal(root.get(Course_.studentUUID),uuidQuery));
+    return em.createQuery(query).getResultList();
+  }
+
+  @Override
+  public List<CourseTeacher> getCourseTeacherByStudent(String uuidQuery) {
+    final CriteriaBuilder builder= em.getCriteriaBuilder();
+    final CriteriaQuery<Student>query=builder.createQuery(Student.class);
+    final Root<Student> root= query.from(Student.class);
+    final Join<Student,CourseTeacher> courseTeacherJoin=root.join(root.join(Student_.courseTeacher));
+    query.multiselect(courseTeacherJoin)
+    return null;
   }
 
   private void buildSearchCriteria(
