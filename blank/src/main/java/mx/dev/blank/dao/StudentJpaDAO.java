@@ -11,11 +11,8 @@ import javax.persistence.criteria.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import mx.dev.blank.entity.Course;
-import mx.dev.blank.entity.CourseTeacher;
-import mx.dev.blank.entity.Student;
+import mx.dev.blank.entity.*;
 import mx.dev.blank.entity.Student_;
-import mx.dev.blank.entity.Teacher;
 import org.apache.commons.lang3.StringUtils;
 
 @RequiredArgsConstructor
@@ -60,7 +57,7 @@ public class StudentJpaDAO implements StudentDAO {
     final CriteriaBuilder builder= em.getCriteriaBuilder();
     final CriteriaQuery<Student>query=builder.createQuery(Student.class);
     final Root<CourseTeacher> root= query.from(CourseTeacher.class);
-    final Join<Course,CourseTeacher> courseTeacherJoin=root.join(root.join(CourseTeacher.course_id));
+    final Join<CourseTeacher,Course> courseTeacherJoin=root.join(root.join(CourseTeacher.course_id));
     final Join<CourseTeacher, Teacher> teacherJoin=root.join(root.join(CourseTeacher_.courseT));
     query.multiselect(teacherJoin.get(Teacher_.name),
             courseTeacherJoin.get(Course_.name),courseTeacherJoin.get(Course_.keycode))
@@ -85,6 +82,9 @@ public class StudentJpaDAO implements StudentDAO {
 
   @Override
   public List<Course> getCoursesWithoutGrade(String uuidQuery) {
+    final CriteriaBuilder builder= em.getCriteriaBuilder();
+    final CriteriaQuery<Grade>query=builder.createQuery(Grade.class);
+    final Root<Grade> root= query.from(Grade.class);
     return null;
   }
 
