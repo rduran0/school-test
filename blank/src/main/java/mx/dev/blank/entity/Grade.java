@@ -2,13 +2,10 @@ package mx.dev.blank.entity;
 
 import javax.persistence.*;
 
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name="grade")
@@ -28,6 +25,9 @@ public class Grade implements Serializable {
 
     @Column(name="score",nullable = false)
     private Float score;
+
+    @Column(name="registry_day",nullable = false)
+    private Date registry_day;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_teacher_id", nullable = false)

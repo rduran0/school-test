@@ -20,8 +20,11 @@ public interface StudentDAO {
 
   List<Course> getCourseByStudent(String uuidQuery);
 
-  List<CourseTeacher> getCourseTeacherByStudent(String uuidQuery);
+  List<Course> getCourseTeacherByStudent(String uuidQuery);
 
+  List<CourseTeacher> getCourseByDate(final Date startDate,final Date endDate,String day);
 
+  List<CourseTeacher> getCourseByDate(Date startDate, Date endDate);
 
+  List<Course> getCoursesWithoutGrade(String uuidQuery);
 }

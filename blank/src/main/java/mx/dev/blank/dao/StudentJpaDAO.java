@@ -15,6 +15,7 @@ import mx.dev.blank.entity.Course;
 import mx.dev.blank.entity.CourseTeacher;
 import mx.dev.blank.entity.Student;
 import mx.dev.blank.entity.Student_;
+import mx.dev.blank.entity.Teacher;
 import org.apache.commons.lang3.StringUtils;
 
 @RequiredArgsConstructor
@@ -55,12 +56,35 @@ public class StudentJpaDAO implements StudentDAO {
   }
 
   @Override
-  public List<CourseTeacher> getCourseTeacherByStudent(String uuidQuery) {
+  public List<Course> getCourseTeacherByStudent(String uuidQuery) {
     final CriteriaBuilder builder= em.getCriteriaBuilder();
     final CriteriaQuery<Student>query=builder.createQuery(Student.class);
-    final Root<Student> root= query.from(Student.class);
-    final Join<Student,CourseTeacher> courseTeacherJoin=root.join(root.join(Student_.courseTeacher));
-    query.multiselect(courseTeacherJoin)
+    final Root<CourseTeacher> root= query.from(CourseTeacher.class);
+    final Join<Course,CourseTeacher> courseTeacherJoin=root.join(root.join(CourseTeacher.course_id));
+    final Join<CourseTeacher, Teacher> teacherJoin=root.join(root.join(CourseTeacher_.courseT));
+    query.multiselect(teacherJoin.get(Teacher_.name),
+            courseTeacherJoin.get(Course_.name),courseTeacherJoin.get(Course_.keycode))
+            .where(query.get());
+    return null;
+  }
+
+  @Override
+  public List<CourseTeacher> getCourseByDate(Date startDate, Date endDate, String day) {
+    final CriteriaBuilder builder= em.getCriteriaBuilder();
+    final CriteriaQuery<CourseTeacher> query=builder.createQuery(CourseTeacher.class);
+    final Root<CourseTeacher> root= query.from(CourseTeacher.class);
+    final List<Predicate> predicates = new ArrayList<>();
+    predicates.add(builder.between(root.get(CourseTeacher_.birthday), startDate, endDate));
+    return null;
+  }
+
+  @Override
+  public List<CourseTeacher> getCourseByDate(Date startDate, Date endDate) {
+    return null;
+  }
+
+  @Override
+  public List<Course> getCoursesWithoutGrade(String uuidQuery) {
     return null;
   }
 

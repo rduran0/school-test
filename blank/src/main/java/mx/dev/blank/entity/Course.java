@@ -28,7 +28,4 @@ public class Course implements Serializable {
   @Column(name = "keycode", nullable = false)
   private String keycode;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @Column(name="student_id",nullable = false)
-  private Student studentUUID;
 }

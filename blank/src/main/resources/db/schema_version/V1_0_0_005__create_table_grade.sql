@@ -1,6 +1,7 @@
-CREATE TABLE grade (
+CREATE TABLE IF NOT EXISTS grade (
     id int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-    score float(3)NOT NULL,
+    score float(3) NOT NULL,
+    registry_day date NOT NULL,
     course_teacher_id int(20) UNSIGNED NOT NULL,
     student_id int(20) UNSIGNED NOT NULL,
     PRIMARY KEY (id),

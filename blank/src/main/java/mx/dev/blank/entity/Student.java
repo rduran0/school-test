@@ -39,7 +39,4 @@ public class Student implements Serializable {
   @Column(name = "birthday", nullable = false)
   private Date birthday;
 
-  @OneToMany(fetch = FetchType.LAZY)
-  @Column(name="course_id",nullable = false)
-  private int courseid;
 }
