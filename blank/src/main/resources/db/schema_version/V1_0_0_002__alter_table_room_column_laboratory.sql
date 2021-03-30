@@ -1,2 +1,2 @@
 -- ADD COLUMN "laboratory" AT TABLE ROM
-ALTER TABLE room ADD laboratory BIT NOT NULL;
+ALTER TABLE room ADD COLUMN laboratory BIT(1) NOT NULL;
