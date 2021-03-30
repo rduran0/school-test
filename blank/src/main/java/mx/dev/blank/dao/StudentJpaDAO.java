@@ -47,36 +47,29 @@ public class StudentJpaDAO implements StudentDAO {
     final CriteriaBuilder builder= em.getCriteriaBuilder();
     final CriteriaQuery<Course>query=builder.createQuery(Course.class);
     final Root<Course> root= query.from(Course.class);
-    query.select(root).where(root.get(Course_.course),
-    builder.equal(root.get(Course_.studentUUID),uuidQuery));
+    final Join<CourseTeacher, Student> joinTeacher = root.join(String.valueOf(Student_.course_teacher_id));
+    query.select(root);
+    query.where(builder.equal(joinTeacher.get(Student_.uuid), uuidQuery));
     return em.createQuery(query).getResultList();
   }
 
   @Override
   public List<Course> getCourseTeacherByStudent(String uuidQuery) {
     final CriteriaBuilder builder= em.getCriteriaBuilder();
-    final CriteriaQuery<Student>query=builder.createQuery(Student.class);
-    final Root<CourseTeacher> root= query.from(CourseTeacher.class);
-    final Join<CourseTeacher,Course> courseTeacherJoin=root.join(root.join(CourseTeacher.course_id));
-    final Join<CourseTeacher, Teacher> teacherJoin=root.join(root.join(CourseTeacher_.courseT));
-    query.multiselect(teacherJoin.get(Teacher_.name),
-            courseTeacherJoin.get(Course_.name),courseTeacherJoin.get(Course_.keycode))
-            .where(query.get());
-    return null;
+    final CriteriaQuery<Course>query=builder.createQuery(Course.class);
+    final Root<Course> root= query.from(Course.class);
+    final Join<CourseTeacher, Student> joinTeacher = root.join(String.valueOf(Student_.course_teacher_id));
+    final Join<CourseTeacher, Course> joinCourse = root.join(String.valueOf(CourseTeacher_.course));
+    query.multiselect(
+            joinCourse.get(Course_.name),
+            joinCourse.get(Course_.keycode));
+    query.where(builder.equal(joinTeacher.get(Student_.uuid), uuidQuery));
+    return em.createQuery(query).getResultList();
   }
 
   @Override
   public List<CourseTeacher> getCourseByDate(Date startDate, Date endDate, String day) {
-    final CriteriaBuilder builder= em.getCriteriaBuilder();
-    final CriteriaQuery<CourseTeacher> query=builder.createQuery(CourseTeacher.class);
-    final Root<CourseTeacher> root= query.from(CourseTeacher.class);
-    final List<Predicate> predicates = new ArrayList<>();
-    predicates.add(builder.between(root.get(CourseTeacher_.birthday), startDate, endDate));
-    return null;
-  }
 
-  @Override
-  public List<CourseTeacher> getCourseByDate(Date startDate, Date endDate) {
     return null;
   }
 
