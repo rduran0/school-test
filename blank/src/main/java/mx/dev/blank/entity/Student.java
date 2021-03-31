@@ -5,16 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "student")
@@ -45,5 +40,12 @@ public class Student implements Serializable {
   @Temporal(TemporalType.DATE)
   @Column(name = "birthday", nullable = false)
   private Date birthday;
+
+  @ManyToOne
+  @Column(name="course_teacher_id")
+  private CourseTeacher course_teacher;
+
+  @Column(name="course_teacher_id")
+  private Integer course_teacher_id;
 
 }
