@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.*;
 
+import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -46,9 +47,9 @@ public class StudentJpaDAO implements StudentDAO {
   public List<Course> getCourseByStudent(String uuidQuery) {
     final CriteriaBuilder builder= em.getCriteriaBuilder();
     final CriteriaQuery<Course>query=builder.createQuery(Course.class);
-    final Root<Course> root= query.from(Course.class);
+    final Root<Student> root= query.from(Student.class);
     final Join<CourseTeacher, Student> joinTeacher = root.join(String.valueOf(Student_.course_teacher_id));
-    query.select(root);
+    query.select(root.get(Student_.course_teacher_id.getName()));
     query.where(builder.equal(joinTeacher.get(Student_.uuid), uuidQuery));
     return em.createQuery(query).getResultList();
   }
