@@ -44,9 +44,9 @@ public class StudentJpaDAO implements StudentDAO {
   }
 
   @Override
-  public List<Course> getCourseByStudent(String uuidQuery) {
+  public List<Student> getCourseByStudent(String uuidQuery) {
     final CriteriaBuilder builder= em.getCriteriaBuilder();
-    final CriteriaQuery<Course>query=builder.createQuery(Course.class);
+    final CriteriaQuery<Student>query=builder.createQuery(Student.class);
     final Root<Student> root= query.from(Student.class);
     final Join<CourseTeacher, Student> joinTeacher = root.join(String.valueOf(Student_.course_teacher_id));
     query.select(root.get(Student_.course_teacher_id.getName()));

@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,18 +28,19 @@ public class DAOTestConfig {
     @DataProvider
     public Object[][] findByID_dataProvider() {
         return new Object[][] {
-                {"f4d9a308-5088-4748-8ed8-66469a522bdc", "f4d9a308-5088-4748-8ed8-66469a522bdc"},
-                {"f4d9a308-5088-4748-8ed8-66469a52we45", null}
+                {"1"},
+                {"2"},
+                {null}
         };
     }
 
     @Test(dataProvider = "findByID_dataProvider")
     @DatabaseSetup(DBUNIT_XML)
     public void getCourseByStudent(final String uuidQuery) {
-        final List<Course> course = studentDAO.getCourseByStudent(uuidQuery);
+        final List<Student> course = studentDAO.getCourseByStudent(uuidQuery);
         assertThat(course)
-                .extracting(Course::getId)
-                .containsExactlyInAnyOrderElementsOf(uuidQuery);
+                .extracting(Student::getUuid)
+                .containsExactlyInAnyOrderElementsOf(Collections.singleton(uuidQuery));
     }
 
 }
