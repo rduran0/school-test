@@ -28,8 +28,8 @@ public class DAOTestConfig {
     @DataProvider
     public Object[][] findByID_dataProvider() {
         return new Object[][] {
-                {"1"},
-                {"2"},
+                {"U-1"},
+                {"U-2"},
                 {null}
         };
     }
