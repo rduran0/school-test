@@ -1,18 +1,17 @@
 package mx.dev.blank.dao;
 
+import java.nio.charset.CoderResult;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import mx.dev.blank.entity.Student;
+import mx.dev.blank.entity.*;
 import mx.dev.blank.entity.Student_;
 import org.apache.commons.lang3.StringUtils;
 
@@ -41,6 +40,45 @@ public class StudentJpaDAO implements StudentDAO {
     buildSearchCriteria(predicates, builder, root, nameQuery, uuidQuery);
 
     return em.createQuery(query).getResultList();
+  }
+
+  @Override
+  public List<Course> getCourseByStudent(String uuidQuery) {
+    final CriteriaBuilder builder= em.getCriteriaBuilder();
+    final CriteriaQuery<Course>query=builder.createQuery(Course.class);
+    final Root<Course> root= query.from(Course.class);
+    final Join<CourseTeacher, Student> joinTeacher = root.join(String.valueOf(Student_.course_teacher_id));
+    query.select(root);
+    query.where(builder.equal(joinTeacher.get(Student_.uuid), uuidQuery));
+    return em.createQuery(query).getResultList();
+  }
+
+  @Override
+  public List<Course> getCourseTeacherByStudent(String uuidQuery) {
+    final CriteriaBuilder builder= em.getCriteriaBuilder();
+    final CriteriaQuery<Course>query=builder.createQuery(Course.class);
+    final Root<Course> root= query.from(Course.class);
+    final Join<CourseTeacher, Student> joinTeacher = root.join(String.valueOf(Student_.course_teacher_id));
+    final Join<CourseTeacher, Course> joinCourse = root.join(String.valueOf(CourseTeacher_.course));
+    query.multiselect(
+            joinCourse.get(Course_.name),
+            joinCourse.get(Course_.keycode));
+    query.where(builder.equal(joinTeacher.get(Student_.uuid), uuidQuery));
+    return em.createQuery(query).getResultList();
+  }
+
+  @Override
+  public List<CourseTeacher> getCourseByDate(Date startDate, Date endDate, String day) {
+
+    return null;
+  }
+
+  @Override
+  public List<Course> getCoursesWithoutGrade(String uuidQuery) {
+    final CriteriaBuilder builder= em.getCriteriaBuilder();
+    final CriteriaQuery<Grade>query=builder.createQuery(Grade.class);
+    final Root<Grade> root= query.from(Grade.class);
+    return null;
   }
 
   private void buildSearchCriteria(
