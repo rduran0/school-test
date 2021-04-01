@@ -1,6 +1,5 @@
 package mx.dev.blank.dao;
 
-import java.nio.charset.CoderResult;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,14 +7,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.*;
 
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import mx.dev.blank.entity.*;
 import mx.dev.blank.entity.Student_;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Repository;
 
+@Repository
 @RequiredArgsConstructor
 public class StudentJpaDAO implements StudentDAO {
 
@@ -49,6 +49,7 @@ public class StudentJpaDAO implements StudentDAO {
     final CriteriaQuery<Student>query=builder.createQuery(Student.class);
     final Root<Student> root= query.from(Student.class);
     final Join<CourseTeacher, Student> joinTeacher = root.join(String.valueOf(Student_.course_teacher_id));
+    System.out.println("prueba");
     query.select(root.get(Student_.course_teacher_id.getName()));
     query.where(builder.equal(joinTeacher.get(Student_.uuid), uuidQuery));
     return em.createQuery(query).getResultList();

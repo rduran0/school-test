@@ -21,26 +21,5 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Configuration
 @ComponentScan(basePackages = "mx.dev.blank.dao", scopedProxy = ScopedProxyMode.INTERFACES)
 public class DAOTestConfig {
-    private static final String DBUNIT_XML = "classpath:dbunit/dao/teacher.xml";
-
-    @Autowired  private StudentDAO studentDAO;
-
-    @DataProvider
-    public Object[][] findByID_dataProvider() {
-        return new Object[][] {
-                {"U-1"},
-                {"U-2"},
-                {null}
-        };
-    }
-
-    @Test(dataProvider = "findByID_dataProvider")
-    @DatabaseSetup(DBUNIT_XML)
-    public void getCourseByStudent(final String uuidQuery) {
-        final List<Student> course = studentDAO.getCourseByStudent(uuidQuery);
-        assertThat(course)
-                .extracting(Student::getUuid)
-                .containsExactlyInAnyOrderElementsOf(Collections.singleton(uuidQuery));
-    }
 
 }
