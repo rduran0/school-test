@@ -34,6 +34,9 @@ public class CourseTeacher implements Serializable {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "course_id", nullable = false)
   private Course course;
+  
+  @Column(name = "course_id", updatable = false, insertable = false)
+  private int courseId;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "teacher_id", nullable = false)

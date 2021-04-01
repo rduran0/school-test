@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import mx.dev.blank.web.controller.request.CourseRequest;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,4 +34,13 @@ public class Course implements Serializable {
   @Column(name = "keycode", nullable = false)
   private String keycode;
 
+  public Course(final String name, final String keycode) {
+	  this.name = name;
+	  this.keycode = keycode;
+  }
+  
+  public void update(final CourseRequest request) {
+	  this.name = request.getName();
+	  this.keycode = request.getKeycode();
+  }
 }
