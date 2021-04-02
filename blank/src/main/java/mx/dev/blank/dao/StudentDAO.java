@@ -18,7 +18,7 @@ public interface StudentDAO {
       @NotNull Date rangeStart,
       @NotNull Date rangeEnd);
 
-  List<Student> getCourseByStudent(String uuidQuery);
+  List<Course> getCourseByStudent(String uuidQuery);
 
   List<Course> getCourseTeacherByStudent(String uuidQuery);
 

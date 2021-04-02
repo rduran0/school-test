@@ -43,14 +43,15 @@ public class StudentJpaDAO implements StudentDAO {
   }
 
   @Override
-  public List<Student> getCourseByStudent(String uuidQuery) {
+  public List<Course> getCourseByStudent(String uuidQuery) {
     final CriteriaBuilder builder= em.getCriteriaBuilder();
-    final CriteriaQuery<Student>query=builder.createQuery(Student.class);
-    final Root<Student> root= query.from(Student.class);
-    final Join<CourseTeacher, Student> joinTeacher = root.join(String.valueOf(Student_.courseID));
+    final CriteriaQuery<Course>query=builder.createQuery(Course.class);
+    final Root<Course> root= query.from(Course.class);
+    final Join<CourseTeacher, Grade> joinTeacher = root.join(String.valueOf(Grade_.courseTeacher));
+    final Join<Grade,Student> joinStudent = root.join(String.valueOf(Student_.id));
     System.out.println("prueba");
-    query.select(root.get(String.valueOf(Student_.courseID)));
-    query.where(builder.equal(joinTeacher.get(Student_.uuid), uuidQuery));
+    query.select(root);
+    query.where(builder.equal(joinStudent.get(Student_.uuid), uuidQuery));
     return em.createQuery(query).getResultList();
   }
 
@@ -59,12 +60,13 @@ public class StudentJpaDAO implements StudentDAO {
     final CriteriaBuilder builder= em.getCriteriaBuilder();
     final CriteriaQuery<Course>query=builder.createQuery(Course.class);
     final Root<Course> root= query.from(Course.class);
-    final Join<CourseTeacher, Student> joinTeacher = root.join(String.valueOf(Student_.courseID));
+    final Join<CourseTeacher, Grade> joinTeacher = root.join(String.valueOf(CourseTeacher_.id));
     final Join<CourseTeacher, Course> joinCourse = root.join(String.valueOf(CourseTeacher_.course));
+    final Join<Student, Grade> joinStudent = root.join(String.valueOf(Student_.id));
     query.multiselect(
             joinCourse.get(Course_.name),
             joinCourse.get(Course_.keycode));
-    query.where(builder.equal(joinTeacher.get(Student_.uuid), uuidQuery));
+    query.where(builder.equal(joinStudent.get(String.valueOf(Student_.uuid)), uuidQuery));
     return em.createQuery(query).getResultList();
   }
 

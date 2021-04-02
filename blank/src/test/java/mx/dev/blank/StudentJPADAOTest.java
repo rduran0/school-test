@@ -3,6 +3,7 @@ package mx.dev.blank;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import mx.dev.blank.dao.StudentDAO;
+import mx.dev.blank.entity.Course;
 import mx.dev.blank.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -14,6 +15,8 @@ import org.testng.annotations.Test;
 
 import java.util.Collections;
 import java.util.List;
+
+import static java.util.Collections.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Test(groups = "db")
@@ -38,10 +41,10 @@ public class StudentJPADAOTest {
         System.out.println("prueba"+ uuidQuery);
 
         System.out.println("prueba"+ studentDAO.getCourseByStudent(uuidQuery));
-        final List<Student> course = studentDAO.getCourseByStudent(uuidQuery);
+        final List<Course> course = studentDAO.getCourseByStudent(uuidQuery);
 
         assertThat(course)
-                .extracting(Student::getUuid)
-                .containsExactlyInAnyOrderElementsOf(Collections.singleton(uuidQuery));
+                .extracting(Course::getId)
+                .containsExactlyInAnyOrderElementsOf(EMPTY_LIST);
     }
 }
