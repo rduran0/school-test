@@ -8,13 +8,17 @@ import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +27,7 @@ import mx.dev.blank.entity.Course;
 import mx.dev.blank.exceptions.ResourceNotFound;
 import mx.dev.blank.model.CourseDTO;
 import mx.dev.blank.service.CourseService;
+import mx.dev.blank.web.controller.request.CourseFilterRequest;
 import mx.dev.blank.web.controller.request.CourseRequest;
 import mx.dev.blank.web.controller.response.CourseResponse;
 
@@ -123,5 +128,23 @@ public class CourseRestController {
 	}
   }
   
+  @InitBinder("CourseFilter")
+  private void initBinderRouteCoverageFilterRequest(final WebDataBinder binder) {
+    binder.setAllowedFields("keycode");
+  }
+  
+  /*
+   * Get a list of courses
+   */
+  @GetMapping(path = "/filter")
+  public ResponseEntity<CourseResponse> getCoursesFilters(@ModelAttribute("CourseFilter")
+  final CourseFilterRequest filters){
+	  log.info("Request {}", filters);
+	  final CourseResponse response = new CourseResponse();
+	  final List<Course> courses = courseService.getCourses(filters);
+	  response.setCourses(courses.stream().map(this::build).collect(Collectors.toList()));
+	  
+	  return ResponseEntity.ok(response);
+  }
   
 }

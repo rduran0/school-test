@@ -4,17 +4,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +18,6 @@ import mx.dev.blank.exceptions.ResourceNotFound;
 import mx.dev.blank.model.CourseDTO;
 import mx.dev.blank.service.CourseService;
 import mx.dev.blank.web.controller.assemblers.CourseResourceAssambler;
-import mx.dev.blank.web.controller.request.CourseRequest;
 import mx.dev.blank.web.controller.response.CourseResponse;
 
 
@@ -43,29 +34,23 @@ public class CourseTwoRestController {
   private final CourseService courseService;
   private final CourseResourceAssambler.Factory assemblerFactory;
   
+  /*
+   * Get a Course using an assembler
+   */
+  
   @GetMapping(path = "/{courseId}")
   public CourseDTO getCourse(@PathVariable("courseId") final long courseId){
-	    final CourseResourceAssambler assembler = assemblerFactory.create(Collections.emptyList());
-		try {
-			return assembler.toDto(courseService.findCourse(courseId)); 
-		} catch(final ResourceNotFound ex) {
-			log.warn("Incorrect courseId: {}", courseId);
-			return null;
-		}
-  }
-  
-  @GetMapping(path = "/special/{fullCourseId}")
-  public CourseDTO getSpecialCourse(@PathVariable("fullCourseId") final Course course){
-	  if(course != null) {
-		  return null;
+	  final CourseResourceAssambler assembler = assemblerFactory.create(Collections.emptyList());
+	  try {
+		return assembler.toDto(courseService.findCourse(courseId)); 
+	  } catch(final ResourceNotFound ex) {
+		log.warn("Incorrect courseId: {}", courseId);
+		return null;
 	  }
-	    final CourseResourceAssambler assembler = assemblerFactory.create(Collections.emptyList());
-		
-			return assembler.toDto(course); 
   }
   
   /*
-   * Get a list of courses
+   * Get a list of courses using an assambler with expand
    */
   @GetMapping
   public ResponseEntity<CourseResponse> getCourses(
@@ -79,5 +64,20 @@ public class CourseTwoRestController {
 	  
 	  return ResponseEntity.ok(response);
   }
+  
+  /*
+   * Method to test a Custom Resolver
+   */
+  @GetMapping(path = "/special/{fullCourseId}")
+  public CourseDTO getSpecialCourse(@PathVariable("fullCourseId") final Course course){
+	  if(course != null) {
+		  return null;
+	  }
+	    final CourseResourceAssambler assembler = assemblerFactory.create(Collections.emptyList());
+		
+			return assembler.toDto(course); 
+  }
+  
+
   
 }

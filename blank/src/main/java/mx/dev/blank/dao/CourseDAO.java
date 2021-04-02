@@ -6,6 +6,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import mx.dev.blank.entity.Course;
+import mx.dev.blank.web.controller.request.CourseFilterRequest;
+
 import org.springframework.validation.annotation.Validated;
 
 @Validated
@@ -21,7 +23,7 @@ public interface CourseDAO {
   
   Course findById(@Min(1) long courseId);
   
-  List<Course> getCourses();
+  List<Course> getCourses(CourseFilterRequest request);
   
   int countTeachersById(@Min(1) long courseId);
 }

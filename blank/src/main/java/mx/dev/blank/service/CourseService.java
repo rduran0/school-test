@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import mx.dev.blank.dao.CourseDAO;
 import mx.dev.blank.entity.Course;
 import mx.dev.blank.exceptions.ResourceNotFound;
+import mx.dev.blank.web.controller.request.CourseFilterRequest;
 import mx.dev.blank.web.controller.request.CourseRequest;
 
 @Service
@@ -20,8 +21,13 @@ public class CourseService {
 	private final CourseDAO courseDAO;
 	
 	@Transactional
+	public List<Course> getCourses(final CourseFilterRequest request){
+		return courseDAO.getCourses(request);
+	}
+	
+	@Transactional
 	public List<Course> getCourses(){
-		return courseDAO.getCourses();
+		return courseDAO.getCourses(null);
 	}
 	
 	@Transactional

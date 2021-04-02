@@ -3,6 +3,7 @@ package mx.dev.blank.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import mx.dev.blank.web.controller.request.CourseRequest;
 
@@ -26,6 +27,7 @@ public class Course implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
+  @Setter //Testing only
   private int id;
 
   @Column(name = "name", nullable = false)

@@ -2,14 +2,10 @@ package mx.dev.blank;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +16,7 @@ import mx.dev.blank.web.controller.resolvers.CourseResolver;
 @Slf4j
 @RequiredArgsConstructor
 @EnableWebMvc
-public class SchoolWebMvcConfig extends WebMvcConfigurerAdapter{
+public class SchoolWebMvcConfig implements WebMvcConfigurer {
 	
 	private final CourseService courseService;
 	

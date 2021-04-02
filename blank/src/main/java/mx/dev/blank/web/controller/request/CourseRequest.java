@@ -1,16 +1,16 @@
 package mx.dev.blank.web.controller.request;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class CourseRequest {
 
 	@NotBlank
-	private final String name;
+	private String name;
 	@NotBlank
-	private final String keycode;
+	private String keycode;
 }

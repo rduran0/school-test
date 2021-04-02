@@ -19,6 +19,7 @@ import mx.dev.blank.entity.Course;
 import mx.dev.blank.entity.CourseTeacher;
 import mx.dev.blank.entity.CourseTeacher_;
 import mx.dev.blank.entity.Course_;
+import mx.dev.blank.web.controller.request.CourseFilterRequest;
 
 @RequiredArgsConstructor
 @Repository
@@ -77,11 +78,15 @@ public class CourseJpaDAO implements CourseDAO {
   }
   
   @Override
-  public List<Course> getCourses() {
+  public List<Course> getCourses(final CourseFilterRequest request) {
     final CriteriaBuilder builder = em.getCriteriaBuilder();
     final CriteriaQuery<Course> query = builder.createQuery(Course.class);
-    query.from(Course.class);
+    final Root<Course> root = query.from(Course.class);
 
+    if(request != null && request.getKeycode() != null) {
+    	query.where(builder.equal(root.get(Course_.keycode), request.getKeycode()));
+    }
+    
     return HibernateHelper.getResults(em, query);
   }
   
