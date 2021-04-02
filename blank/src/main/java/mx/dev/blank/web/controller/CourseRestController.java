@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
@@ -57,13 +56,13 @@ public class CourseRestController {
    */
   @GetMapping(path = "/{courseId}")
   public @ResponseBody CourseDTO getCourse(@PathVariable("courseId") final long courseId){
-	    
-		try {
-			return build(courseService.findCourse(courseId)); 
-		} catch(final ResourceNotFound ex) {
-			log.warn("Incorrect courseId: {}", courseId);
-			return null;
-		}
+	  
+	  try {
+		return build(courseService.findCourse(courseId)); 
+	  } catch(final ResourceNotFound ex) {
+		log.warn("Incorrect courseId: {}", courseId);
+		return null;
+	  }
   }
   
   private CourseDTO build(final Course course) {
@@ -75,9 +74,9 @@ public class CourseRestController {
    */
   @PutMapping
   public ResponseEntity<String> createCourse(          
-	@Valid
-	@RequestBody final CourseRequest request,
-	final BindingResult errors) {
+	  @Valid
+	  @RequestBody final CourseRequest request,
+	  final BindingResult errors) {
     
 	if (errors.hasErrors()) {
 	  log.warn("Errors: {}", errors);
@@ -93,22 +92,22 @@ public class CourseRestController {
    */
   @PostMapping(path = "/{courseId}")
   public ResponseEntity<String> updateCourse(
-		  @PathVariable("courseId") final long courseId,
-		  @Valid
-			@RequestBody final CourseRequest request,
-			final BindingResult errors) {
-		    
-			if (errors.hasErrors()) {
-			  log.warn("Errors: {}", errors);
-			  return ResponseEntity.badRequest().body("Incorrect inputs");
-		    }
+      @PathVariable("courseId") final long courseId,
+	  @Valid
+	  @RequestBody final CourseRequest request,
+	  final BindingResult errors) {
+		
+	if (errors.hasErrors()) {
+	  log.warn("Errors: {}", errors);
+	  return ResponseEntity.badRequest().body("Incorrect inputs");
+	}
     
 	try {
-		courseService.editCourse(courseId, request);
-		return ResponseEntity.ok("Course updated"); 
+	  courseService.editCourse(courseId, request);
+      return ResponseEntity.ok("Course updated"); 
 	} catch(final ResourceNotFound ex) {
-		log.warn("Incorrect courseId: {}", courseId);
-		return ResponseEntity.badRequest().body("Incorrect courseId");
+	  log.warn("Incorrect courseId: {}", courseId);
+	  return ResponseEntity.badRequest().body("Incorrect courseId");
 	}
   }
   
@@ -117,14 +116,14 @@ public class CourseRestController {
    */
   @DeleteMapping(path = "/{courseId}")
   public ResponseEntity<String> deleteCourse(
-		  @PathVariable("courseId") final long courseId) {
+	  @PathVariable("courseId") final long courseId) {
     
 	try {
-		courseService.deleteCourse(courseId);
-		return ResponseEntity.ok("Course deleted"); 
+	  courseService.deleteCourse(courseId);
+	  return ResponseEntity.ok("Course deleted"); 
 	} catch(final ResourceNotFound ex) {
-		log.warn("Incorrect courseId: {}", courseId);
-		return ResponseEntity.badRequest().body("Incorrect courseId");
+	  log.warn("Incorrect courseId: {}", courseId);
+	  return ResponseEntity.badRequest().body("Incorrect courseId");
 	}
   }
   

@@ -71,11 +71,11 @@ public class CourseTwoRestController {
   @GetMapping(path = "/special/{fullCourseId}")
   public CourseDTO getSpecialCourse(@PathVariable("fullCourseId") final Course course){
 	  if(course != null) {
-		  return null;
+	    return null;
 	  }
-	    final CourseResourceAssambler assembler = assemblerFactory.create(Collections.emptyList());
-		
-			return assembler.toDto(course); 
+
+	  final CourseResourceAssambler assembler = assemblerFactory.create(Collections.emptyList());
+	  return assembler.toDto(course); 
   }
   
 

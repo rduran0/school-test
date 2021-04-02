@@ -22,11 +22,8 @@ public class SchoolWebMvcConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-		log.info("Test test 222");
 		log.info("{}", resolvers.size());
-		CourseResolver resolver = new CourseResolver(courseService);
-		resolvers.add(resolver);
-		log.info("{}",resolver.supportsParameter(null));
+		resolvers.add(new CourseResolver(courseService));
 		log.info("{}", resolvers.size());
 	}
 

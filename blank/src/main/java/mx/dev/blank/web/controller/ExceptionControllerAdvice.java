@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentConversionNotSupportedException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +22,9 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler{
 		return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body("Error");
 	}
 	
-	@ExceptionHandler(Exception.class)
+	@ExceptionHandler(MethodArgumentConversionNotSupportedException.class)
 	public final ResponseEntity<String> handleErrorr(final Exception ex, final HttpServletRequest request){
-		log.warn("NotFoundException: {}", ex.getMessage());
+		log.warn("MethodArgumentConversionNotSupportedException: {}", ex.getMessage());
 		return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body("Error");
 	}
 }

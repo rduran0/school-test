@@ -24,15 +24,15 @@ public class CourseResolver implements HandlerMethodArgumentResolver {
 
 	private final CourseService courseService;
 	
-@Override
-public boolean supportsParameter(final MethodParameter parameter) {
+  @Override
+  public boolean supportsParameter(final MethodParameter parameter) {
 	log.info("fullCourseId");
-	    return parameter != null && parameter.getParameterType().equals(Course.class);
-}
+    return parameter != null && parameter.getParameterType().equals(Course.class);
+  }
 
-@SuppressWarnings("rawtypes")
-@Override
-public Object resolveArgument(final MethodParameter parameter, final ModelAndViewContainer mavContainer,
+  @SuppressWarnings("rawtypes")
+  @Override
+  public Object resolveArgument(final MethodParameter parameter, final ModelAndViewContainer mavContainer,
 		final NativeWebRequest webRequest, final WebDataBinderFactory binderFactory) throws Exception {
 	 final HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
 	    final Map pathVariables =
@@ -54,5 +54,5 @@ public Object resolveArgument(final MethodParameter parameter, final ModelAndVie
 	    }
 
 	    return null;
-}
+  }
 }
