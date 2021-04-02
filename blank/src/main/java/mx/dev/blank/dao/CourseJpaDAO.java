@@ -10,8 +10,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import mx.dev.blank.entity.Course;
 import mx.dev.blank.entity.Course_;
+import org.springframework.stereotype.Repository;
 
 @RequiredArgsConstructor
+@Repository
 public class CourseJpaDAO implements CourseDAO {
 
   @Setter(onMethod = @__(@PersistenceContext), value = AccessLevel.PACKAGE)

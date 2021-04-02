@@ -22,7 +22,7 @@ public interface StudentDAO {
 
   List<Course> getCourseTeacherByStudent(String uuidQuery);
 
-  List<CourseTeacher> getCourseByDate(final Date startDate,final Date endDate,String day);
+  List<CourseTeacher> getCourseByDate(final Date startDate, final Date endDate, String day);
 
   List<Course> getCoursesWithoutGrade(String uuidQuery);
 }

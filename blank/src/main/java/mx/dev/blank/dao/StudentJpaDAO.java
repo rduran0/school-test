@@ -11,12 +11,11 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import mx.dev.blank.entity.*;
-import mx.dev.blank.entity.Student_;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
-@Repository
 @RequiredArgsConstructor
+@Repository
 public class StudentJpaDAO implements StudentDAO {
 
   @Setter(onMethod = @__(@PersistenceContext), value = AccessLevel.PACKAGE)
@@ -48,9 +47,9 @@ public class StudentJpaDAO implements StudentDAO {
     final CriteriaBuilder builder= em.getCriteriaBuilder();
     final CriteriaQuery<Student>query=builder.createQuery(Student.class);
     final Root<Student> root= query.from(Student.class);
-    final Join<CourseTeacher, Student> joinTeacher = root.join(String.valueOf(Student_.course_teacher_id));
+    final Join<CourseTeacher, Student> joinTeacher = root.join(String.valueOf(Student_.courseID));
     System.out.println("prueba");
-    query.select(root.get(Student_.course_teacher_id.getName()));
+    query.select(root.get(String.valueOf(Student_.courseID)));
     query.where(builder.equal(joinTeacher.get(Student_.uuid), uuidQuery));
     return em.createQuery(query).getResultList();
   }
@@ -60,7 +59,7 @@ public class StudentJpaDAO implements StudentDAO {
     final CriteriaBuilder builder= em.getCriteriaBuilder();
     final CriteriaQuery<Course>query=builder.createQuery(Course.class);
     final Root<Course> root= query.from(Course.class);
-    final Join<CourseTeacher, Student> joinTeacher = root.join(String.valueOf(Student_.course_teacher_id));
+    final Join<CourseTeacher, Student> joinTeacher = root.join(String.valueOf(Student_.courseID));
     final Join<CourseTeacher, Course> joinCourse = root.join(String.valueOf(CourseTeacher_.course));
     query.multiselect(
             joinCourse.get(Course_.name),
