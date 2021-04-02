@@ -1,0 +1,1 @@
+ALTER TABLE student DROP FOREIGN KEY student_course_teacher_id_fk;

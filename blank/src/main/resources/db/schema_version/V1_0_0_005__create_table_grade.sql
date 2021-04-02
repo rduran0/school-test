@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS grade (
     course_teacher_id int(20) UNSIGNED NOT NULL,
     student_id int(20) UNSIGNED NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT student_course_teacher_id_fk FOREIGN KEY (course_teacher_id) REFERENCES course_teacher (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT course_teacher_id_fk FOREIGN KEY (course_teacher_id) REFERENCES course_teacher (id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT student_id_fk FOREIGN KEY (student_id) REFERENCES student (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;

@@ -9,7 +9,6 @@ import java.util.Date;
 
 @Entity
 @Table(name="grade")
-@EqualsAndHashCode(of={"id"})
 @Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -18,8 +17,7 @@ public class Grade implements Serializable {
     private static final long serialVersionUID=1L;
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name="uuid", strategy = "uuid2")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "id", nullable = false)
     private Integer  id;
 
