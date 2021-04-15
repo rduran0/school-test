@@ -1,8 +1,12 @@
 package mx.dev.blank.entity;
 
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -46,4 +50,20 @@ public class Student implements Serializable {
   @Column(name = "birthday", nullable = false)
   private Date birthday;
 
+  @OneToMany(fetch = FetchType.LAZY)
+  @JoinColumn(name = "course_teacher_id")
+  @Setter
+  private CourseTeacher assignedCourse;
+
+  /**
+   * Visible only for testing
+   */
+  public static Student forTest(final String name, final String firstSurname, final String secondSurname) {
+    final Student student = new Student();
+    student.name = name;
+    student.firstSurname = firstSurname;
+    student.secondSurname = secondSurname;
+
+    return student;
+  }
 }

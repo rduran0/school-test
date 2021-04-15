@@ -1,7 +1,6 @@
 package mx.dev.blank.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,4 +30,12 @@ public class User implements Serializable {
 
   @Column(name = "name", nullable = false)
   private String name;
+
+  public User(final String name) {
+    this.name = name;
+  }
+
+  public void updateName(final String name) {
+    this.name = name;
+  }
 }

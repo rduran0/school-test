@@ -7,7 +7,10 @@ import javax.persistence.criteria.CriteriaQuery;
 
 public class HibernateHelper {
 
-  public static <T> T getSingleResult(final EntityManager em, final CriteriaQuery<T> criteriaQuery) {
+  public static <T> T getSingleResult(
+      final EntityManager em,
+      final CriteriaQuery<T> criteriaQuery) {
+
     try {
       return em.createQuery(criteriaQuery).getSingleResult();
     } catch (final NonUniqueResultException e) {
@@ -15,7 +18,10 @@ public class HibernateHelper {
     }
   }
 
-  public static <T> List<T> getResults(final EntityManager em, final CriteriaQuery<T> criteriaQuery) {
+  public static <T> List<T> getResults(
+      final EntityManager em,
+      final CriteriaQuery<T> criteriaQuery) {
+
     return em.createQuery(criteriaQuery).getResultList();
   }
 }

@@ -53,4 +53,15 @@ public class TeacherJpaDAO implements TeacherDAO {
 
     return em.createQuery(query).getResultList();
   }
+
+  @Override
+  public Teacher getByUuid(final String uuid) {
+    final CriteriaBuilder builder = em.getCriteriaBuilder();
+    final CriteriaQuery<Teacher> query = builder.createQuery(Teacher.class);
+    final Root<Teacher> root = query.from(Teacher.class);
+
+    query.select(root).where(builder.equal(root.get(Teacher_.uuid), uuid));
+
+    return HibernateHelper.getSingleResult(em, query);
+  }
 }

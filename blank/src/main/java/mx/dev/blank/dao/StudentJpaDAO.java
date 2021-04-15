@@ -23,6 +23,11 @@ public class StudentJpaDAO implements StudentDAO {
   private EntityManager em;
 
   @Override
+  public void update(final Student student) {
+    em.merge(student);
+  }
+
+  @Override
   public List<Student> getStudentsBySearchCriteria(
       final String nameQuery,
       final String uuidQuery,
@@ -63,5 +68,16 @@ public class StudentJpaDAO implements StudentDAO {
 
       predicates.add(builder.like(root.get(Student_.uuid), queryFormat));
     }
+  }
+
+  @Override
+  public Student getByUuid(final String uuid) {
+    final CriteriaBuilder builder = em.getCriteriaBuilder();
+    final CriteriaQuery<Student> query = builder.createQuery(Student.class);
+    final Root<Student> root = query.from(Student.class);
+
+    query.select(root).where(builder.equal(root.get(Student_.uuid), uuid));
+
+    return HibernateHelper.getSingleResult(em, query);
   }
 }
