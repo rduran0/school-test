@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import mx.dev.blank.model.CourseRoomDTO;
 import mx.dev.blank.model.CourseRoomRequest;
 import mx.dev.blank.service.CourseService;
+import mx.dev.blank.service.CourseServiceManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AppRestController {
 
   private final CourseService courseService;
+  //private final CourseServiceManager courseService;
 
   @GetMapping(value = "courses/{courseId}/rooms")
   public ResponseEntity<CourseRoomDTO> getCourseRoom(
