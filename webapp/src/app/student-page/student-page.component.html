@@ -1,0 +1,27 @@
+<div class="list-pagination">
+  <label for="offset">Offset</label>
+  <input id="offset" type="text" [(ngModel)]="offset">
+  <label for="limit">Limit</label>
+  <input type="text" id="limit" [(ngModel)]="limit">
+
+  <button type="button" (click)="getList()">Load list</button>
+</div>
+
+<div *surpriseMe class="list-display">
+  <div class="student-info" *ngFor="let student of students">
+    <span>Name: {{student.name}}</span>
+    <span>Last name: {{student.lastName}}</span>
+    <span>Age: {{student.age}}</span>
+  </div>
+</div>
+
+<div class="creation">
+  <label for="name">Name: </label>
+  <input type="text" id="name" [(ngModel)]="name">
+  <label for="last-name">Last Name: </label>
+  <input type="text" id="last-name" [(ngModel)]="lastName">
+  <label for="age">Age: </label>
+  <input type="text" id="age" [(ngModel)]="age">
+
+  <button type="button" (click)="createStudent()">Create Student</button>
+</div>

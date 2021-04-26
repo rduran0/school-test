@@ -1,0 +1,24 @@
+<div>
+  <button type="button" (click)="triggerError(401)">
+    Trigger 401
+  </button>
+  <button type="button" (click)="triggerError(403)">
+    Trigger 403
+  </button>
+  <button type="button" (click)="triggerError(409)">
+    Trigger 409
+  </button>
+  <button type="button" (click)="triggerError(417)">
+    Trigger 417
+  </button>
+  <button type="button" (click)="triggerError(418)">
+    Trigger 418
+  </button>
+  <button type="button" (click)="triggerError(418)">
+    Trigger 500
+  </button>
+
+  <button type="button" (click)="triggerBadRequest()">
+    Trigger Bad Request, error not handled
+  </button>
+</div>
