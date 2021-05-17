@@ -15,8 +15,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import mx.dev.blank.entity.User;
 import mx.dev.blank.entity.User_;
+import org.springframework.stereotype.Repository;
 
 @RequiredArgsConstructor
+@Repository
 public class UserJpaDAO implements UserDAO {
 
   @Setter(onMethod = @__(@PersistenceContext), value = AccessLevel.PACKAGE)

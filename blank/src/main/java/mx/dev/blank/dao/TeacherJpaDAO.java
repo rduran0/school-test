@@ -3,10 +3,15 @@ package mx.dev.blank.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.validation.constraints.Min;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -18,9 +23,13 @@ import mx.dev.blank.entity.Room;
 import mx.dev.blank.entity.Room_;
 import mx.dev.blank.entity.Teacher;
 import mx.dev.blank.entity.Teacher_;
+import mx.dev.blank.entity.User;
+import mx.dev.blank.entity.User_;
 import mx.dev.blank.model.CourseRoomDTO;
+import org.springframework.stereotype.Repository;
 
 @RequiredArgsConstructor
+@Repository
 public class TeacherJpaDAO implements TeacherDAO {
 
   @Setter(onMethod = @__(@PersistenceContext), value = AccessLevel.PACKAGE)
@@ -52,5 +61,20 @@ public class TeacherJpaDAO implements TeacherDAO {
     query.where(builder.equal(joinTeacher.get(Teacher_.id), teacherId));
 
     return em.createQuery(query).getResultList();
+  }
+
+  @Override
+  public Teacher getById(final int id) {
+    final CriteriaBuilder builder = em.getCriteriaBuilder();
+    final CriteriaQuery<Teacher> query = builder.createQuery(Teacher.class);
+    final Root<Teacher> root = query.from(Teacher.class);
+
+    final Path<Integer> path = root.get(Teacher_.id);
+    final Predicate predicate = builder.equal(path, id);
+
+    query.select(root).where(predicate);
+
+    final TypedQuery<Teacher> typedQuery = em.createQuery(query);
+    return typedQuery.getSingleResult();
   }
 }
